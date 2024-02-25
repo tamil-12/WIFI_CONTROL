@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, Modal, ActivityIndicator, TouchableOpacity,Button } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, Modal, ActivityIndicator, TouchableOpacity,Button ,PermissionsAndroid} from 'react-native';
 import WifiManager from 'react-native-wifi-reborn';
 
 const WifiScanner = () => {
@@ -63,9 +63,32 @@ const WifiScanner = () => {
   };
 
   useEffect(() => {
-    scanWifi();
+    requestLocationPermission();
+    
   }, []);
 
+  const requestLocationPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: "React Native Wifi Reborn App Permission",
+          message:
+            "Location permission is required to connect with or scan for Wifi networks. ",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK"
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        scanWifi();
+      } else {
+        console.log("Location permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
