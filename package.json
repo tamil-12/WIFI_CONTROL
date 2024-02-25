@@ -10,8 +10,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^11.3.0",
+    "axios": "^1.6.7",
+    "multicast-dns": "^7.2.5",
     "react": "18.2.0",
-    "react-native": "0.73.4"
+    "react-native": "0.73.4",
+    "react-native-udp": "^4.1.7",
+    "react-native-websocket": "^1.0.2",
+    "react-native-wifi-reborn": "^4.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
